@@ -5,6 +5,8 @@ import Highlights from './components/Highlights.jsx'
 import Tabs from './components/Tabs.jsx'
 import ProjectGrid from './components/ProjectGrid.jsx'
 import ExperienceGrid from './components/ExperienceGrid.jsx'
+import EducationGrid from './components/EducationGrid.jsx'
+import About from './components/About.jsx'
 import DetailModal from './components/DetailModal.jsx'
 import StoryViewer from './components/StoryViewer.jsx'
 import ContactModal from './components/ContactModal.jsx'
@@ -14,6 +16,7 @@ const EMAIL = 'oshan.premkumar@gmail.com'
 const TABS = [
   { id: 'projects', label: 'Projects' },
   { id: 'experience', label: 'Experience' },
+  { id: 'education', label: 'Education' },
   { id: 'about', label: 'About' },
 ]
 
@@ -59,9 +62,22 @@ function App() {
             />
           </div>
         )}
-        {tab === 'about' && (
-          <div className="py-10 text-center text-[#a8a8a8]">About — coming next.</div>
+        {tab === 'education' && (
+          <div className="mt-1">
+            <EducationGrid
+              onSelect={(e) =>
+                setDetail({
+                  key: `education-${e.id}`,
+                  kind: e.kind,
+                  title: e.degree,
+                  tag: `${e.school} · ${e.period}`,
+                  desc: e.desc,
+                })
+              }
+            />
+          </div>
         )}
+        {tab === 'about' && <About />}
       </main>
       <DetailModal
         item={detail}
