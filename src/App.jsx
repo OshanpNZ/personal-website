@@ -6,6 +6,7 @@ import Tabs from './components/Tabs.jsx'
 import ProjectGrid from './components/ProjectGrid.jsx'
 import ExperienceGrid from './components/ExperienceGrid.jsx'
 import DetailModal from './components/DetailModal.jsx'
+import StoryViewer from './components/StoryViewer.jsx'
 import ContactModal from './components/ContactModal.jsx'
 
 const EMAIL = 'oshan.premkumar@gmail.com'
@@ -20,6 +21,7 @@ function App() {
   const [contactOpen, setContactOpen] = useState(false)
   const [tab, setTab] = useState('projects')
   const [detail, setDetail] = useState(null)
+  const [story, setStory] = useState(null)
   // Per-card like/save/comment state, keyed by card id. Lives until refresh.
   const [interactions, setInteractions] = useState({})
 
@@ -34,7 +36,7 @@ function App() {
       <Header handle="Oshanp" onContact={() => setContactOpen(true)} />
       <main className="mx-auto max-w-[935px] px-5 pt-[34px] pb-20">
         <Profile onFriends={() => {}} />
-        <Highlights onSelect={() => {}} />
+        <Highlights onSelect={(h) => h.stories?.length && setStory(h)} />
         <Tabs tabs={TABS} active={tab} onChange={setTab} />
 
         {tab === 'projects' && (
@@ -68,6 +70,7 @@ function App() {
         interaction={detail ? interactions[detail.key] : undefined}
         onInteract={(patch) => detail && updateInteraction(detail.key, patch)}
       />
+      <StoryViewer highlight={story} onClose={() => setStory(null)} />
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} email={EMAIL} />
     </div>
   )
