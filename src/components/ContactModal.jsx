@@ -10,7 +10,7 @@ const inputClass =
 
 function ContactModal({ open, onClose, email }) {
   const [form, setForm] = useState({ name: '', email: '', message: '' })
-  const [status, setStatus] = useState('idle') // idle | sending | sent | error
+  const [status, setStatus] = useState('idle') 
 
   useEffect(() => {
     if (!open) return
@@ -21,7 +21,6 @@ function ContactModal({ open, onClose, email }) {
     return () => window.removeEventListener('keydown', onKey)
   }, [open, onClose])
 
-  // Reset the form each time the modal opens.
   useEffect(() => {
     if (open) {
       setForm({ name: '', email: '', message: '' })
@@ -76,7 +75,7 @@ function ContactModal({ open, onClose, email }) {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-[14px] p-[22px]">
           <p className="m-0 text-sm leading-[1.5] text-[#a8a8a8]">
-            Have a project in mind or just want to say hi? Drop me a line.
+            Want to have a chat or just want to say hi? Drop me a line.
           </p>
           <input
             required
