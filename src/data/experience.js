@@ -6,6 +6,7 @@ const experience = [
     period: 'Nov 2025 - Feb 2026',
     kind: 'INTERNSHIP',
     desc: 'What you work on, the impact you have had, and the stack you use.',
+    images: ['/experience/Visa.png'],
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ const experience = [
     period: 'Jan 2025 - Oct 2025',
     kind: 'INTERNSHIP',
     desc: 'What you built and what you learned.',
+    images: ['/experience/Spotyaa.webp'],
   },
 
 ]

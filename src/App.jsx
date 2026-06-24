@@ -9,6 +9,7 @@ import EducationGrid from './components/EducationGrid.jsx'
 import About from './components/About.jsx'
 import DetailModal from './components/DetailModal.jsx'
 import StoryViewer from './components/StoryViewer.jsx'
+import FriendsModal from './components/FriendsModal.jsx'
 import ContactModal from './components/ContactModal.jsx'
 
 const EMAIL = 'oshan.premkumar@gmail.com'
@@ -22,6 +23,7 @@ const TABS = [
 
 function App() {
   const [contactOpen, setContactOpen] = useState(false)
+  const [friendsOpen, setFriendsOpen] = useState(false)
   const [tab, setTab] = useState('projects')
   const [detail, setDetail] = useState(null)
   const [story, setStory] = useState(null)
@@ -37,8 +39,8 @@ function App() {
   return (
     <div className="min-h-screen bg-black text-[#f5f5f5] antialiased">
       <Header handle="Oshanp" onContact={() => setContactOpen(true)} />
-      <main className="mx-auto max-w-[935px] px-5 pt-[34px] pb-20">
-        <Profile onFriends={() => {}} />
+      <main className="mx-auto max-w-[1200px] px-5 pt-[34px] pb-20">
+        <Profile onFriends={() => setFriendsOpen(true)} />
         <Highlights onSelect={(h) => h.stories?.length && setStory(h)} />
         <Tabs tabs={TABS} active={tab} onChange={setTab} />
 
@@ -57,6 +59,7 @@ function App() {
                   title: e.role,
                   tag: `${e.company} · ${e.period}`,
                   desc: e.desc,
+                  images: e.images,
                 })
               }
             />
@@ -72,6 +75,7 @@ function App() {
                   title: e.degree,
                   tag: `${e.school} · ${e.period}`,
                   desc: e.desc,
+                  images: e.images,
                 })
               }
             />
@@ -87,6 +91,7 @@ function App() {
         onInteract={(patch) => detail && updateInteraction(detail.key, patch)}
       />
       <StoryViewer highlight={story} onClose={() => setStory(null)} />
+      <FriendsModal open={friendsOpen} onClose={() => setFriendsOpen(false)} />
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} email={EMAIL} />
     </div>
   )
