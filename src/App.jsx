@@ -5,6 +5,7 @@ import Highlights from './components/Highlights.jsx'
 import Tabs from './components/Tabs.jsx'
 import ProjectGrid from './components/ProjectGrid.jsx'
 import ExperienceGrid from './components/ExperienceGrid.jsx'
+import DetailModal from './components/DetailModal.jsx'
 import ContactModal from './components/ContactModal.jsx'
 
 const EMAIL = 'oshan.premkumar@gmail.com'
@@ -18,6 +19,15 @@ const TABS = [
 function App() {
   const [contactOpen, setContactOpen] = useState(false)
   const [tab, setTab] = useState('projects')
+  const [detail, setDetail] = useState(null)
+  // Per-card like/save/comment state, keyed by card id. Lives until refresh.
+  const [interactions, setInteractions] = useState({})
+
+  const updateInteraction = (key, patch) =>
+    setInteractions((prev) => ({
+      ...prev,
+      [key]: { liked: false, saved: false, comments: [], ...prev[key], ...patch },
+    }))
 
   return (
     <div className="min-h-screen bg-black text-[#f5f5f5] antialiased">
@@ -29,18 +39,35 @@ function App() {
 
         {tab === 'projects' && (
           <div className="mt-1">
-            <ProjectGrid onSelect={() => {}} />
+            <ProjectGrid onSelect={(p) => setDetail({ ...p, key: `project-${p.id}` })} />
           </div>
         )}
         {tab === 'experience' && (
           <div className="mt-1">
-            <ExperienceGrid onSelect={() => {}} />
+            <ExperienceGrid
+              onSelect={(e) =>
+                setDetail({
+                  key: `experience-${e.id}`,
+                  kind: e.kind,
+                  title: e.role,
+                  tag: `${e.company} · ${e.period}`,
+                  desc: e.desc,
+                })
+              }
+            />
           </div>
         )}
         {tab === 'about' && (
           <div className="py-10 text-center text-[#a8a8a8]">About — coming next.</div>
         )}
       </main>
+      <DetailModal
+        item={detail}
+        onClose={() => setDetail(null)}
+        handle="Oshanp"
+        interaction={detail ? interactions[detail.key] : undefined}
+        onInteract={(patch) => detail && updateInteraction(detail.key, patch)}
+      />
       <ContactModal open={contactOpen} onClose={() => setContactOpen(false)} email={EMAIL} />
     </div>
   )

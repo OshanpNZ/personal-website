@@ -4,7 +4,7 @@ const experience = [
     role: 'Software Engineer Intern',
     company: 'Visa',
     period: 'Nov 2025 - Feb 2026',
-    kind: 'FULL-TIME',
+    kind: 'INTERNSHIP',
     desc: 'What you work on, the impact you have had, and the stack you use.',
   },
   {
